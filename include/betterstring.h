@@ -2,6 +2,7 @@
 #define BETTERSTRING_H
 
 #include <stddef.h>
+#include <stdbool.h>
 
 /**
  * A convenience wrapper for dynamically allocated string.
@@ -9,37 +10,37 @@
  * Manages memory allocation and provides string operations 
  * that allow for easy string manipulation.
  */
-struct String {
+typedef struct Str {
     char*   ptr;
     size_t  size;
     size_t  capacity;
-};
-
-typedef struct String String;
+} Str;
 
 // Constructors
-String STR_new(); // Construct empty String object
-String STR_new_from_s(const char * str); // Construct from c-string
-String STR_new_fill(size_t count, char c); // Construct from c-string
-String STR_copy(const String* from); // Copy constructor
-String STR_move(String* from); // Move constructor
+Str Str_new(); // Construct empty Str object
+Str Str_from(const char * str); // Construct from c-string
+Str Str_new_fill(size_t count, char c); // Construct from c-string
+Str Str_copy(const Str* from); // Copy constructor
+Str Str_move(Str* from); // Move constructor
 
 // Destructor
-void STR_destroy(String* this);
+void Str_destroy(Str* this);
 
 // Access
-size_t STR_size(const String* this);
-size_t STR_capacity(const String* this);
-char* STR_at(const String* this, size_t index);
-const char* STR_c_str(String* this);
-char* STR_data(String* this);
+size_t Str_size(const Str* this);
+size_t Str_capacity(const Str* this);
+bool Str_empty(const Str* this);
+char* Str_at(const Str* this, size_t index);
+const char* Str_c_str(const Str* this);
+char* Str_data(Str* this);
 
 // String Manipulation
-void STR_append(String* this, const String* other);
-void STR_append_s(String* this, const char* other);
-String STR_add(const String* left, const String* right);
-String STR_add_sr(const String* left, const char* right);
-String STR_add_sl(const char* left, const String* right);
-String STR_add_s(const char* left, const char* right);
-
+void Str_append(Str* this, const Str* other);
+void Str_appends(Str* this, const char* other);
+Str Str_add(const Str* left, const Str* right);
+Str Str_addsr(const Str* left, const char* right);
+Str Str_addsl(const char* left, const Str* right);
+Str Str_adds(const char* left, const char* right);
+bool Str_equals(const Str* left, const Str* right);
+bool Str_equalss(const)
 #endif
